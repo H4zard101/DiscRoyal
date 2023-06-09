@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class AttackManager : MonoBehaviour
 {
-
+    public Animator anim;
+    public bool canAttack = true;
+    public float attackCooldown = 1.0f;
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(0) && canAttack)
         {
             DirectionCheck();
         }
@@ -20,11 +22,27 @@ public class AttackManager : MonoBehaviour
         //Attack direction based on camera movement direction
         if (Input.GetAxis("Mouse X") < 0 && Input.GetAxis("Mouse Y") < 1f && Input.GetAxis("Mouse Y") > -1f)
         {
-            Debug.Log("Right Attack");
+            anim.SetTrigger("Right");
+            canAttack = false;
+            StartCoroutine(ResetAttackCooldown());
         }
         else if (Input.GetAxis("Mouse X") > 0 && Input.GetAxis("Mouse Y") < 1f && Input.GetAxis("Mouse Y") > -1f)
         {
-            Debug.Log("Left Attack");
+            anim.SetTrigger("Left");
+            canAttack = false;
+            StartCoroutine(ResetAttackCooldown());
+        }
+        else if (Input.GetAxis("Mouse Y") > 0 && Input.GetAxis("Mouse X") < 1f && Input.GetAxis("Mouse X") > -1f)
+        {
+            anim.SetTrigger("Thrust");
+            canAttack = false;
+            StartCoroutine(ResetAttackCooldown());
+        }
+        else if (Input.GetAxis("Mouse Y") < 0 && Input.GetAxis("Mouse X") < 1f && Input.GetAxis("Mouse X") > -1f)
+        {
+            anim.SetTrigger("Down");
+            canAttack = false;
+            StartCoroutine(ResetAttackCooldown());
         }
 
 
@@ -38,5 +56,10 @@ public class AttackManager : MonoBehaviour
         //    Debug.Log("Left Attack");
         //}
 
+    }
+    IEnumerator ResetAttackCooldown()
+    {
+        yield return new WaitForSeconds(attackCooldown);
+        canAttack = true;
     }
 }
