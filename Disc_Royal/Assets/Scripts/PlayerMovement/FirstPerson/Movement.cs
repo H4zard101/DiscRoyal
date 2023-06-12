@@ -12,6 +12,8 @@ public class Movement : MonoBehaviour
     public float speed = 12.0f;
     public float gravity = -9.81f;
     public float jumpHeight = 3.0f;
+
+    public float sensitive = 10;
     Vector3 velocity;
 
     private bool isGrounded;

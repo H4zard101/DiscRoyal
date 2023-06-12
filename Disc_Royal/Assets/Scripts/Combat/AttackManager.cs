@@ -11,7 +11,7 @@ public class AttackManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0) && canAttack)
+        if(Input.GetMouseButton(0) && canAttack)
         {
             DirectionCheck();
         }
@@ -20,25 +20,25 @@ public class AttackManager : MonoBehaviour
     public void DirectionCheck()
     {
         //Attack direction based on camera movement direction
-        if (Input.GetAxis("Mouse X") < 0 && Input.GetAxis("Mouse Y") < 1f && Input.GetAxis("Mouse Y") > -1f)
+        if (Input.GetAxis("Mouse X") < 0 && Input.GetAxis("Mouse Y") < 0.15 && Input.GetAxis("Mouse Y") > -0.15)
         {
             anim.SetTrigger("Right");
             canAttack = false;
             StartCoroutine(ResetAttackCooldown());
         }
-        else if (Input.GetAxis("Mouse X") > 0 && Input.GetAxis("Mouse Y") < 1f && Input.GetAxis("Mouse Y") > -1f)
+        else if (Input.GetAxis("Mouse X") > 0 && Input.GetAxis("Mouse Y") < 0.15 && Input.GetAxis("Mouse Y") > -0.15)
         {
             anim.SetTrigger("Left");
             canAttack = false;
             StartCoroutine(ResetAttackCooldown());
         }
-        else if (Input.GetAxis("Mouse Y") > 0 && Input.GetAxis("Mouse X") < 1f && Input.GetAxis("Mouse X") > -1f)
+        else if (Input.GetAxis("Mouse Y") > 0 && Input.GetAxis("Mouse X") < 0.15 && Input.GetAxis("Mouse X") > -0.15)
         {
             anim.SetTrigger("Thrust");
             canAttack = false;
             StartCoroutine(ResetAttackCooldown());
         }
-        else if (Input.GetAxis("Mouse Y") < 0 && Input.GetAxis("Mouse X") < 1f && Input.GetAxis("Mouse X") > -1f)
+        else if (Input.GetAxis("Mouse Y") < 0 && Input.GetAxis("Mouse X") < 0.15 && Input.GetAxis("Mouse X") > -0.15)
         {
             anim.SetTrigger("Down");
             canAttack = false;
@@ -46,14 +46,20 @@ public class AttackManager : MonoBehaviour
         }
 
 
-        // Attack direction based on moving dirrection
+        //// Attack direction based on moving dirrection
         //if (Input.GetAxis("Horizontal") < 0 && Input.GetAxis("Vertical") < 1f && Input.GetAxis("Vertical") > -1f)
         //{
         //    Debug.Log("Right Attack");
+        //    anim.SetTrigger("Right");
+        //    canAttack = false;
+        //    StartCoroutine(ResetAttackCooldown());
         //}
         //else if (Input.GetAxis("Horizontal") > 0 && Input.GetAxis("Vertical") < 1f && Input.GetAxis("Vertical") > -1f)
         //{
         //    Debug.Log("Left Attack");
+        //    anim.SetTrigger("Left");
+        //    canAttack = false;
+        //    StartCoroutine(ResetAttackCooldown());
         //}
 
     }

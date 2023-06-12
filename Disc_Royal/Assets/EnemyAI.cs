@@ -97,14 +97,14 @@ public class EnemyAI : MonoBehaviour
     }
     private void Attack()
     {
-        agent.SetDestination(transform.position);
-        //transform.LookAt(player);
+        agent.SetDestination(transform.position);    
 
         if(!alreadyAttacked)
         {
             Debug.Log("attacking");
             alreadyAttacked = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks);
+
         }
     }
 }
