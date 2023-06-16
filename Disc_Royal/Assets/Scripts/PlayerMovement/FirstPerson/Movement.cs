@@ -16,7 +16,7 @@ public class Movement : MonoBehaviour
     public float sensitive = 10;
     Vector3 velocity;
 
-    private bool isGrounded;
+    public bool isGrounded;
     void Update()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
@@ -32,7 +32,11 @@ public class Movement : MonoBehaviour
         Vector3 move = transform.right * x + transform.forward * z;
         controller.Move(move * speed * Time.deltaTime);
 
-        if(Input.GetButtonDown("Jump") || Input.GetButtonDown("JumpAlt")  && isGrounded)
+        if(Input.GetButtonDown("Jump") && isGrounded)
+        {
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        }
+        else if (Input.GetButtonDown("JumpAlt") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }

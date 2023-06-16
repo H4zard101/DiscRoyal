@@ -5,13 +5,13 @@ using UnityEngine;
 public class AttackManager : MonoBehaviour
 {
     public Animator anim;
-    public bool canAttack = true;
+    public static bool canAttack = true;
     public float attackCooldown = 1.0f;
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButton(0) && canAttack)
+        if(Input.GetAxis("Fire1") == 1 && canAttack)
         {
             DirectionCheck();
         }
