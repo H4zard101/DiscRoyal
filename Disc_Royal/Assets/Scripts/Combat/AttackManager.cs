@@ -13,59 +13,73 @@ public class AttackManager : MonoBehaviour
     {
         if(Input.GetAxis("Fire1") == 1 && canAttack)
         {
-            DirectionCheck();
+            AttackDirectionCheck();
+        }
+        if(Input.GetMouseButton(1) && canAttack)
+        {
+            BlockDirectionCheck();
         }
     }
 
-    public void DirectionCheck()
+    public void AttackDirectionCheck()
     {
         //Attack direction based on camera movement direction
         if (Input.GetAxis("Mouse X") < 0 && Input.GetAxis("Mouse Y") < 0.15 && Input.GetAxis("Mouse Y") > -0.15)
         {
             anim.SetTrigger("Right");
             canAttack = false;
-            StartCoroutine(ResetAttackCooldown());
+            StartCoroutine(ResetAttackCooldown(1f));
         }
         else if (Input.GetAxis("Mouse X") > 0 && Input.GetAxis("Mouse Y") < 0.15 && Input.GetAxis("Mouse Y") > -0.15)
         {
             anim.SetTrigger("Left");
             canAttack = false;
-            StartCoroutine(ResetAttackCooldown());
+            StartCoroutine(ResetAttackCooldown(1f));
         }
         else if (Input.GetAxis("Mouse Y") > 0 && Input.GetAxis("Mouse X") < 0.15 && Input.GetAxis("Mouse X") > -0.15)
         {
             anim.SetTrigger("Thrust");
             canAttack = false;
-            StartCoroutine(ResetAttackCooldown());
+            StartCoroutine(ResetAttackCooldown(1f));
         }
         else if (Input.GetAxis("Mouse Y") < 0 && Input.GetAxis("Mouse X") < 0.15 && Input.GetAxis("Mouse X") > -0.15)
         {
             anim.SetTrigger("Down");
             canAttack = false;
-            StartCoroutine(ResetAttackCooldown());
+            StartCoroutine(ResetAttackCooldown(1f));
         }
-
-
-        //// Attack direction based on moving dirrection
-        //if (Input.GetAxis("Horizontal") < 0 && Input.GetAxis("Vertical") < 1f && Input.GetAxis("Vertical") > -1f)
-        //{
-        //    Debug.Log("Right Attack");
-        //    anim.SetTrigger("Right");
-        //    canAttack = false;
-        //    StartCoroutine(ResetAttackCooldown());
-        //}
-        //else if (Input.GetAxis("Horizontal") > 0 && Input.GetAxis("Vertical") < 1f && Input.GetAxis("Vertical") > -1f)
-        //{
-        //    Debug.Log("Left Attack");
-        //    anim.SetTrigger("Left");
-        //    canAttack = false;
-        //    StartCoroutine(ResetAttackCooldown());
-        //}
-
     }
-    IEnumerator ResetAttackCooldown()
+    public void BlockDirectionCheck()
     {
-        yield return new WaitForSeconds(attackCooldown);
+        //Attack direction based on camera movement direction
+        if (Input.GetAxis("Mouse X") < 0 && Input.GetAxis("Mouse Y") < 0.15 && Input.GetAxis("Mouse Y") > -0.15)
+        {
+            anim.SetTrigger("BlockLeft");
+            canAttack = false;
+            StartCoroutine(ResetAttackCooldown(0.45f));
+        }
+        else if (Input.GetAxis("Mouse X") > 0 && Input.GetAxis("Mouse Y") < 0.15 && Input.GetAxis("Mouse Y") > -0.15)
+        {
+            anim.SetTrigger("BlockRight");
+            canAttack = false;
+            StartCoroutine(ResetAttackCooldown(0.45f));
+        }
+        else if (Input.GetAxis("Mouse Y") > 0 && Input.GetAxis("Mouse X") < 0.15 && Input.GetAxis("Mouse X") > -0.15)
+        {
+            anim.SetTrigger("BlockUp");
+            canAttack = false;
+            StartCoroutine(ResetAttackCooldown(0.45f));
+        }
+        else if (Input.GetAxis("Mouse Y") < 0 && Input.GetAxis("Mouse X") < 0.15 && Input.GetAxis("Mouse X") > -0.15)
+        {
+            anim.SetTrigger("BlockDown");
+            canAttack = false;
+            StartCoroutine(ResetAttackCooldown(0.45f));
+        }
+    }
+    IEnumerator ResetAttackCooldown(float time)
+    {
+        yield return new WaitForSeconds(0.45f);
         canAttack = true;
     }
 }

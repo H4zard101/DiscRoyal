@@ -22,7 +22,15 @@ public class MouseLook : MonoBehaviour
         // Set the mouse Axis
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
 
-        if(freeLock)
+        if(Input.GetKeyDown(KeyCode.Tab))
+        {
+            freeLock = true;
+        }
+        if (Input.GetKeyUp(KeyCode.Tab))
+        {
+            freeLock = false;
+        }
+        if (freeLock)
         {
             float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
